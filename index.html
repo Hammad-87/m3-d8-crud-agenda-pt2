@@ -58,19 +58,45 @@
     <script src="./helper.js"></script>
     <script>
       window.onload = async () => {
+        // OR YOU CAN USE SIMPLE PROMISES
+        // fetch(url)
+        //   .then((response) => {
+        //     return response.json();
+        //   })
+        //   .then((events) => {
+        //     console.log(events);
+        //     console.log("EVENTS FETCHED", events);
+        //     if (events.length > 0) {
+        //       events.forEach((e) => {
+        //         let event = document.createElement("div");
+        //         event.innerHTML = `<a href="detail.html?id=${e._id}">${e.time}: ${e.name}</a>`;
+        //         eventsDiv.appendChild(event);
+        //       });
+        //     } else {
+        //       eventsDiv.innerHTML = "<h1>No planned events yet</h1>";
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.log("err", err);
+        //   });
         let eventsDiv = document.querySelector("#eventsDiv");
-        let events = await getEvents();
+        try {
+          let events = await getEvents();
 
-        console.log("EVENTS FETCHED", events);
+          console.log("EVENTS FETCHED", events);
 
-        if (events.length > 0) {
-          events.forEach((e) => {
-            let event = document.createElement("div");
-            event.innerHTML = `<a href="detail.html?id=${e._id}">${e.time}: ${e.name}</a>`;
-            eventsDiv.appendChild(event);
-          });
-        } else {
-          eventsDiv.innerHTML = "<h1>No planned events yet</h1>";
+          if (events.length > 0) {
+            events.forEach((e) => {
+              let event = document.createElement("div");
+              event.innerHTML = `<a href="detail.html?id=${e._id}">${e.time}: ${e.name}</a>`;
+              eventsDiv.appendChild(event);
+            });
+          } else {
+            eventsDiv.innerHTML = "<h1>No planned events yet</h1>";
+          }
+        } catch (err) {
+          console.log("err", err);
+          alert(err);
         }
       };
     </script>
